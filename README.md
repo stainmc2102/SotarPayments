@@ -1,15 +1,14 @@
 <div align="center">
 
-<img src="docs/assets/banner.svg" alt="SotarPayments banner" width="100%" />
+<img src="sotarpayments.png" alt="SotarPayments banner" width="100%" />
 
 <h3>Cổng nạp Bank • Thẻ cào • Discord Auto Buy cho máy chủ Minecraft</h3>
 
-[![Build](https://img.shields.io/github/actions/workflow/status/SotarStudio/SotarPayments/build.yml?branch=main&label=build&style=for-the-badge)](../../actions/workflows/build.yml)
-[![Release](https://img.shields.io/github/v/release/SotarStudio/SotarPayments?style=for-the-badge&color=4ADE80)](../../releases)
+[![Build](https://img.shields.io/github/actions/workflow/status/stainmc2102/SotarPayments/build.yml?branch=main&label=build&style=for-the-badge)](../../actions/workflows/build.yml)
+[![Release](https://img.shields.io/github/v/release/stainmc2102/SotarPayments?style=for-the-badge&color=4ADE80)](../../releases)
 [![License](https://img.shields.io/badge/license-All%20Rights%20Reserved-orange?style=for-the-badge)](#-bản-quyền)
 [![Java](https://img.shields.io/badge/Java-21-007396?style=for-the-badge&logo=openjdk&logoColor=white)](#-yêu-cầu-hệ-thống)
 [![Paper](https://img.shields.io/badge/Paper%2FFolia-1.21.x-2E9F3F?style=for-the-badge)](#-yêu-cầu-hệ-thống)
-[![Discord](https://img.shields.io/discord/0?style=for-the-badge&logo=discord&logoColor=white&label=Discord&color=5865F2)](https://discord.gg/jD5naBEGMA)
 
 **[📖 Tài liệu](docs/) · [⚙️ Cài đặt](docs/installation.md) · [💬 Lệnh & quyền](docs/commands.md) · [🛠️ Cấu hình](docs/configuration.md) · [🛍️ Discord Auto Buy](docs/discord-store.md) · [❓ FAQ](docs/faq.md)**
 
@@ -115,4 +114,4 @@ Khi sửa cấu hình hoặc thêm provider, hãy cập nhật cả tài liệu 
 
 ## 📄 Bản quyền
 
-© SotarStudio — DuyDuong. Xem điều khoản sử dụng tại nơi phân phối plugin (SpigotMC/BuiltByBit) hoặc liên hệ tác giả qua Discord `lz.dy.dg`.
+© SotarStudio — Stain. Xem điều khoản sử dụng tại nơi phân phối plugin (SpigotMC/BuiltByBit) hoặc liên hệ tác giả qua Discord `stainmc2102`.
