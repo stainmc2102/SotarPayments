@@ -1,0 +1,6 @@
+# PayOS provider
+payos:
+  client-id: ""
+  api-key: ""
+  checksum-key: ""
+  payment-format: "{playername} TENCUM {ordercode}"

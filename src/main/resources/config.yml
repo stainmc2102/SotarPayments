@@ -1,0 +1,63 @@
+# =============================================================
+# SotarPayments v1.4.3 - CẤU HÌNH CHUNG
+# Tác giả: DuyDuong | Discord: lz.dy.dg | Gmail: dduong19208@gmail.com
+# Discord Support: https://dsc.gg/sotarpayments
+# =============================================================
+# Cấu hình đã được chia nhỏ để dễ quản lý:
+# - database.yml                  Cơ sở dữ liệu
+# - payments.yml                  Nạp bank, nạp thẻ, kinh tế, khuyến mãi
+# - providers/*.yml              API của từng nhà cung cấp
+# - discord.yml                   Discord webhook giao dịch
+# - milestones.yml                Mốc nạp cá nhân/toàn server
+# - gui.yml                       Toàn bộ giao diện kho đồ
+# - store.yml                     Discord Auto Buy
+#
+# Lệnh tải lại: /sotar-admin reload
+# Đổi database.type vẫn cần khởi động lại máy chủ.
+# =============================================================
+
+config-version: 2
+language: "vi"
+
+# Link góp ý và hỗ trợ hiển thị trong banner console cùng các lệnh thông tin.
+# Server cũ chưa có mục này vẫn tự dùng link mặc định bên dưới.
+support:
+  discord-url: "https://discord.gg/jD5naBEGMA"
+
+# =============================================================
+# CHỌN PROVIDER - CHỈ CẦN SỬA TẠI ĐÂY
+# =============================================================
+# bank:    sepay | payos
+# card:    gachthefast | card2k | thesieure
+# economy: command | auto | playerpoints | vault | fancyeco
+#
+# auto ưu tiên: FancyEco -> PlayerPoints -> Vault -> command.
+# API key/tài khoản của từng provider nằm trong thư mục providers/.
+providers:
+  bank: "sepay"
+  card: "card2k"
+  economy: "command"
+
+logging:
+  debug: false
+  console:
+    enabled: true
+    anti-spam: true
+    duplicate-window-seconds: 30
+    transaction-events: true
+  file:
+    enabled: true
+    async: true
+    transaction-log: "transactions.log"
+    card-log: "nap_the.txt"
+
+startup-banner:
+  enabled: true
+
+metrics:
+  enabled: true
+
+# Giao diện Dialog hiện đại trên Paper/Leaf khi runtime có Dialog API.
+# Khi API không tồn tại (Bukkit/Spigot/Paper/Folia cũ), plugin tự quay về GUI + chat.
+interface:
+  prefer-dialog: true

@@ -1,0 +1,129 @@
+# =============================================================
+# SotarPayments Store / Discord Auto Buy (fork từ SotarPayments)
+# File này nằm cạnh config.yml và dùng để cấu hình cửa hàng Discord.
+# Lệnh Minecraft gửi embed bán hàng: /taokenhbanhang
+# Lệnh Discord cho staff: /taokenhbanhang và /sotar-admin kiemtramadon <ma-don>
+# =============================================================
+
+settings:
+  # Bật/tắt toàn bộ bot Discord Auto Buy.
+  enabled: false
+
+  # Token bot Discord. Không chia sẻ token này cho bất kỳ ai.
+  bot-token: "DAN_TOKEN_BOT_DISCORD_CUA_BAN_VAO_DAY"
+
+  # Khuyến nghị production: đặt token trong biến môi trường rồi điền tên biến ở đây.
+  # Khi biến tồn tại và có giá trị, plugin ưu tiên nó thay cho bot-token phía trên.
+  # Ví dụ: "SOTARPAYMENTS_DISCORD_TOKEN". Để trống để tiếp tục dùng bot-token.
+  bot-token-environment-variable: ""
+
+  # ID kênh chữ hoặc kênh thông báo Discord hiển thị embed mặt hàng.
+  storefront-channel-id: "DAN_ID_KENH_BAN_HANG"
+
+  # ID kênh log đơn đã thanh toán và giao hàng thành công.
+  purchase-log-channel-id: "DAN_ID_KENH_LOG_DON_HANG"
+
+  # ID kênh nhận feedback sau khi người mua đánh giá đơn hàng.
+  # Embed feedback chỉ hiển thị tên mặt hàng, số tiền, mã đơn và số sao.
+  feedback-channel-id: "DAN_ID_KENH_FEEDBACK_DON_HANG"
+
+  # ID kênh log đơn lỗi / đơn đang treo để staff theo dõi.
+  error-log-channel-id: "DAN_ID_KENH_DON_HANG_LOI"
+
+  # ID kênh audit log mọi hoạt động của Discord Store để staff theo dõi.
+  audit-log-channel-id: "DAN_ID_KENH_AUDIT_LOG"
+
+  # Role staff được phép dùng /taokenhbanhang và /sotar-admin trên Discord.
+  # Người có quyền Administrator hoặc Manage Server vẫn được phép dùng lệnh này.
+  admin-role-ids: []
+  # Nếu muốn cố định các slash command vào 1 server Discord, điền guild/server ID ở đây.
+  # Để trống, plugin ưu tiên guild của kênh bán hàng (hoặc guild duy nhất của bot) để lệnh hiện ngay.
+  # Nếu bot ở nhiều guild và không thể suy luận an toàn, plugin sẽ yêu cầu bạn điền ID thay vì đăng ký sai nơi.
+  # Bot cần được mời với scope applications.commands; lệnh chỉ hoạt động trong guild đã cấu hình.
+  admin-command-guild-id: ""
+
+  # Thời gian giữ một đơn Discord chờ thanh toán, tính bằng giây.
+  # Đơn PENDING được lưu và tiếp tục quét với thời hạn gốc sau reload/restart, không bị hủy mất.
+  order-timeout-seconds: 600
+
+  # Chu kỳ kiểm tra thanh toán, tính bằng giây.
+  poll-every-seconds: 10
+
+  # Chu kỳ tự kiểm tra lại các đơn đã thanh toán nhưng đang chờ người chơi online.
+  # Người mua có thể bấm Chạy lại đơn; nếu họ bấm trước khi vào game, hệ thống vẫn tự giao khi họ online.
+  waiting-player-retry-seconds: 10
+
+  # Số đơn Auto Buy gần nhất được lưu trong store-orders.yml để staff kiểm tra mã đơn.
+  order-history-limit: 500
+
+  # Trạng thái hiển thị của bot.
+  activity: "AUTO BUY | SotarPayments"
+
+  storefront-embed:
+    title: "🛒 AUTO BUY | SotarStore"
+    description:
+      - "Bot mua hàng tự động 24/7"
+      - "Thanh toán xong bot sẽ giao hàng khi người chơi đang online."
+      - "Nếu người chơi chưa vào máy chủ, đơn sẽ được treo và tự giao lại khi người chơi online."
+      - "Sau khi giao hàng, bạn có thể đánh giá đơn từ 1 đến 5 sao."
+      - "Chọn mặt hàng bên dưới để bắt đầu."
+    color: 5814783
+    footer: "SotarPayments Auto Buy"
+    select-placeholder: "Chọn mặt hàng bạn muốn mua..."
+
+  order-embed:
+    title: "🧾 Đơn hàng #{order_id}"
+    color: 65280
+    footer: "Vui lòng chuyển đúng số tiền và đúng nội dung."
+
+  success-embed:
+    title: "✅ Đơn hàng đã giao"
+    color: 65280
+
+  waiting-embed:
+    title: "⏳ Đơn hàng đang treo"
+    color: 15844367
+
+  error-embed:
+    title: "⚠️ Đơn hàng cần staff xử lý"
+    color: 15158332
+
+# =============================================================
+# Danh sách mặt hàng Auto Buy
+# Không còn lồng trong danh mục. Mỗi key dưới products là một mặt hàng.
+# Placeholder dùng trong commands:
+# %player%, {player}, %buyer%, %discord_user%, %discord_id%,
+# %item%, %item_name%, %price%, %order_id%, %payment_order%
+# %buyer% và %discord_user% được chuẩn hóa thành một argument an toàn trước khi chạy command.
+# =============================================================
+products:
+  key_vip:
+    enabled: true
+    name: "Key VIP"
+    price: 10000
+    detail: "Nhận 1 key VIP để mở crate."
+    # true = người chơi phải online trong server mới giao hàng; nếu offline đơn sẽ treo và hiện nút Chạy lại đơn.
+    require-online: true
+    commands:
+      - "crate key give %player% vip 1"
+      - "bc &bSotarStore &8» &f%player% vừa mua &aKey VIP&f."
+
+  rank_vip_30d:
+    enabled: true
+    name: "Rank VIP 30 ngày"
+    price: 39000
+    detail: "Kích hoạt rank VIP trong 30 ngày."
+    require-online: true
+    commands:
+      - "lp user %player% parent addtemp vip 30d"
+      - "msg %player% Bạn đã mua %item_name% thành công. Mã đơn: %order_id%."
+
+  coin_pack_1000:
+    enabled: true
+    name: "Gói 1,000 Coins"
+    price: 20000
+    detail: "Cộng 1,000 coins vào tài khoản trong game."
+    require-online: true
+    commands:
+      - "coins give %player% 1000"
+      - "msg %player% Bạn đã nhận 1,000 coins từ SotarStore."

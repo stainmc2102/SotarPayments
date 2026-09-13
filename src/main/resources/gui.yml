@@ -1,0 +1,295 @@
+# ============================================================================
+# SotarPayments - GUI NẠP THẺ / NẠP NGÂN HÀNG
+# ============================================================================
+# Tải lại sau khi sửa: /sotar-admin reload
+#
+# CÁCH SỬA NHANH
+# 1. Chọn menu bên dưới: card-provider, card-amount hoặc bank-amount.
+# 2. Sửa size/title của menu.
+# 3. Sửa items.<tên-item> cho item cố định; sửa dynamic cho item sinh tự động.
+# 4. Mỗi item có thể chỉnh: enabled, slot/slots, material, name, lore, amount,
+#    custom-model-data, glow, flags và action.
+#
+# SƠ ĐỒ SLOT (slot bắt đầu từ 0)
+# Hàng 1:  0  1  2  3  4  5  6  7  8
+# Hàng 2:  9 10 11 12 13 14 15 16 17
+# Hàng 3: 18 19 20 21 22 23 24 25 26
+# Hàng 4: 27 28 29 30 31 32 33 34 35
+# Hàng 5: 36 37 38 39 40 41 42 43 44
+# Hàng 6: 45 46 47 48 49 50 51 52 53
+# size hợp lệ: 9, 18, 27, 36, 45, 54.
+#
+# MÀU VÀ NỘI DUNG
+# - Màu cũ: &a, &b, &c... | màu hex: &#RRGGBB.
+# - "{lang:gui.xxx}" lấy nội dung từ languages/<ngôn-ngữ>.yml.
+# - Có thể thay trực tiếp bằng chữ, ví dụ: title: "&8Nạp thẻ".
+# - PLAYER_HEAD hỗ trợ thêm: head-owner: "{player}".
+#
+# ACTION HỢP LỆ
+# NONE, CLOSE, OPEN_CARD_PROVIDER, OPEN_BANK_MENU, OPEN_CARD_MENU,
+# OPEN_HISTORY, OPEN_MILESTONE, OPEN_TOP_NAP, SELECT_CARD_PROVIDER,
+# START_CARD_PAYMENT, START_BANK_PAYMENT.
+#
+# PLACEHOLDER
+# Chung: {player}, {provider}, {telco}, {min_amount}, {max_amount}
+# Mệnh giá: {raw_amount}, {amount}, {points}, {bonus}, {promotion_line}
+# Nạp thẻ: {tax}, {net_amount}, {tax_line}, {receive_line}
+#
+# DỮ LIỆU ĐỘNG
+# - Danh sách mệnh giá và nhà mạng nằm trong payments.yml.
+# - slots chỉ quyết định vị trí hiển thị; thứ tự slot khớp thứ tự dữ liệu.
+# - material-by-value/display-by-value cho phép đổi riêng từng nhà mạng.
+#
+# THUỘC TÍNH DÙNG CHUNG
+# Các item tự kế thừa defaults.item. Muốn đổi riêng một item, chỉ cần thêm
+# thuộc tính đó ngay dưới item. Ví dụ: glow: true hoặc custom-model-data: 1001.
+# ============================================================================
+
+version: 2
+
+defaults:
+  item:
+    amount: 1
+    custom-model-data: 0
+    glow: false
+    flags: [HIDE_ATTRIBUTES, HIDE_ADDITIONAL_TOOLTIP]
+
+menus:
+  # --------------------------------------------------------------------------
+  # BƯỚC 1 NẠP THẺ: CHỌN NHÀ MẠNG
+  # --------------------------------------------------------------------------
+  card-provider:
+    size: 45
+    title: "{lang:gui.card-provider-title}"
+
+    decorations:
+      border:
+        enabled: true
+        material: BLACK_STAINED_GLASS_PANE
+        name: " "
+        lore: []
+      accents:
+        enabled: true
+        slots: [0, 8, 36, 44]
+        material: CYAN_STAINED_GLASS_PANE
+        name: " "
+        lore: []
+
+    items:
+      info:
+        enabled: true
+        slot: 4
+        material: NETHER_STAR
+        name: "{lang:gui.card-provider-info-title}"
+        lore:
+          - "{lang:gui.card-provider-info-provider}"
+          - "{lang:gui.card-provider-info-step}"
+          - ""
+          - "{lang:gui.card-provider-info-hint}"
+        action: NONE
+
+      close:
+        enabled: true
+        slot: 40
+        material: BARRIER
+        name: "{lang:gui.close-name}"
+        lore:
+          - "{lang:gui.close-lore}"
+        action: CLOSE
+
+    dynamic:
+      providers:
+        enabled: true
+        slots: [10, 11, 12, 13, 14, 15, 16, 20, 21, 22, 23, 24, 29, 30, 31, 32, 33]
+        material: PAPER
+        material-by-value:
+          VIETTEL: RED_CONCRETE
+          MOBIFONE: BLUE_CONCRETE
+          VINAPHONE: GREEN_CONCRETE
+          VIETNAMOBILE: YELLOW_CONCRETE
+          VNMOBI: YELLOW_CONCRETE
+          ZING: ORANGE_CONCRETE
+          GARENA: FIRE_CHARGE
+          GATE: GOLD_BLOCK
+          VCOIN: PURPLE_CONCRETE
+          SCOIN: AMETHYST_SHARD
+        display-by-value:
+          MOBIFONE: "MobiFone"
+          VINAPHONE: "VinaPhone"
+          VIETNAMOBILE: "Vietnamobile"
+          VNMOBI: "Vietnamobile"
+          VCOIN: "VCoin"
+          SCOIN: "SCoin"
+        name: "{lang:gui.card-telco-name}"
+        lore:
+          - "{lang:gui.card-telco-provider}"
+          - "&7Mệnh giá: &a{min_amount} - {max_amount} VNĐ"
+          - ""
+          - "{lang:gui.click-select}"
+        action: SELECT_CARD_PROVIDER
+
+  # --------------------------------------------------------------------------
+  # BƯỚC 2 NẠP THẺ: CHỌN MỆNH GIÁ
+  # --------------------------------------------------------------------------
+  card-amount:
+    size: 54
+    title: "{lang:gui.card-amount-title}"
+
+    decorations:
+      border:
+        enabled: true
+        material: BLACK_STAINED_GLASS_PANE
+        name: " "
+        lore: []
+      accents:
+        enabled: true
+        slots: [0, 8, 45, 53]
+        material: CYAN_STAINED_GLASS_PANE
+        name: " "
+        lore: []
+
+    items:
+      info:
+        enabled: true
+        slot: 4
+        material: PAPER
+        material-by-value:
+          VIETTEL: RED_CONCRETE
+          MOBIFONE: BLUE_CONCRETE
+          VINAPHONE: GREEN_CONCRETE
+          VIETNAMOBILE: YELLOW_CONCRETE
+          VNMOBI: YELLOW_CONCRETE
+          ZING: ORANGE_CONCRETE
+          GARENA: FIRE_CHARGE
+          GATE: GOLD_BLOCK
+          VCOIN: PURPLE_CONCRETE
+          SCOIN: AMETHYST_SHARD
+        name: "{lang:gui.card-amount-info-title}"
+        lore:
+          - "{lang:gui.card-provider-info-provider}"
+          - "{lang:gui.card-amount-info-step}"
+          - ""
+          - "{lang:gui.card-amount-info-hint}"
+        action: NONE
+
+      back:
+        enabled: true
+        slot: 45
+        material: ARROW
+        name: "{lang:gui.back-name}"
+        lore:
+          - "{lang:gui.back-lore}"
+        action: OPEN_CARD_PROVIDER
+
+      help:
+        enabled: true
+        slot: 49
+        material: BOOK
+        name: "{lang:gui.card-help-title}"
+        lore:
+          - "{lang:gui.card-help-line-1}"
+          - "{lang:gui.card-help-line-2}"
+          - "{lang:gui.card-help-line-3}"
+        action: NONE
+
+      close:
+        enabled: true
+        slot: 53
+        material: BARRIER
+        name: "{lang:gui.close-name}"
+        lore:
+          - "{lang:gui.close-lore}"
+        action: CLOSE
+
+    dynamic:
+      amounts:
+        enabled: true
+        slots: [10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25, 28, 29, 30, 31, 32, 33, 34]
+        material: GOLD_INGOT
+        name: "{lang:gui.amount-item-name}"
+        lore:
+          - "{lang:gui.card-amount-lore-amount}"
+          - "{tax_line}"
+          - "{receive_line}"
+          - "{lang:gui.card-amount-lore-points}"
+          - "{promotion_line}"
+          - ""
+          - "{lang:gui.click-select}"
+        action: START_CARD_PAYMENT
+
+  # --------------------------------------------------------------------------
+  # NẠP NGÂN HÀNG: CHỌN MỆNH GIÁ
+  # --------------------------------------------------------------------------
+  bank-amount:
+    size: 54
+    title: "{lang:gui.bank-amount-title}"
+
+    decorations:
+      border:
+        enabled: true
+        material: BLACK_STAINED_GLASS_PANE
+        name: " "
+        lore: []
+      accents:
+        enabled: true
+        slots: [0, 8, 45, 53]
+        material: CYAN_STAINED_GLASS_PANE
+        name: " "
+        lore: []
+
+    items:
+      info:
+        enabled: true
+        slot: 4
+        material: EMERALD
+        name: "{lang:gui.bank-info-title}"
+        lore:
+          - "{lang:gui.bank-info-provider}"
+          - "{min_line}"
+          - "{max_line}"
+          - ""
+          - "{lang:gui.bank-info-hint}"
+        action: NONE
+
+      no-data:
+        enabled: true
+        slot: 22
+        material: BARRIER
+        name: "{lang:gui.no-data}"
+        lore:
+          - "{lang:gui.bank-no-amounts}"
+        action: NONE
+
+      help:
+        enabled: true
+        slot: 49
+        material: MAP
+        name: "{lang:gui.bank-help-title}"
+        lore:
+          - "{lang:gui.bank-help-line-1}"
+          - "{lang:gui.bank-help-line-2}"
+          - "{lang:gui.bank-help-line-3}"
+        action: NONE
+
+      close:
+        enabled: true
+        slot: 53
+        material: BARRIER
+        name: "{lang:gui.close-name}"
+        lore:
+          - "{lang:gui.close-lore}"
+        action: CLOSE
+
+    dynamic:
+      amounts:
+        enabled: true
+        slots: [10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25, 28, 29, 30, 31, 32, 33, 34]
+        material: EMERALD
+        name: "{lang:gui.amount-item-name}"
+        lore:
+          - "{lang:gui.bank-amount-lore-amount}"
+          - "{lang:gui.bank-amount-lore-points}"
+          - "{promotion_line}"
+          - ""
+          - "{lang:gui.click-select}"
+        action: START_BANK_PAYMENT

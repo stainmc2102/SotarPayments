@@ -1,0 +1,86 @@
+# =============================================================
+# SotarPayments - PAYMENTS & ECONOMY
+# =============================================================
+
+napbank:
+  min-amount: 2000
+  max-amount: 0
+  timeout-seconds: 600
+  poll-every-seconds: 10
+  gui:
+    amounts: [10000, 20000, 30000, 50000, 100000, 200000, 300000, 500000, 1000000, 2000000, 5000000]
+  promotion:
+    enabled: true
+    percent: 20
+    end-date: "31/05/2026 23:59:59"
+
+napthe:
+  taxes:
+    enabled: true
+    rates:
+      "10000": 16
+      "20000": 17
+      "30000": 17
+      "50000": 15.5
+      "100000": 15.5
+      "200000": 15
+      "300000": 15
+      "500000": 15
+      "1000000": 15
+  validation:
+    # false = giữ tương thích lệnh cũ, cho phép nhà mạng/mệnh giá ngoài GUI.
+    # true = chỉ chấp nhận đúng các lựa chọn được khai báo trong napthe.gui.
+    restrict-to-gui-options: false
+  security:
+    # Chỉ hiển thị một phần serial/mã thẻ ở bước xác nhận để tránh lộ dữ liệu nhạy cảm.
+    mask-sensitive-confirmation: true
+  rewards:
+    ratio: 1000
+  promotion:
+    enabled: true
+    percent: 20
+    end-date: "31/05/2026 23:59:59"
+  gui:
+    amounts: [10000, 20000, 30000, 50000, 100000, 200000, 300000, 500000, 1000000, 2000000, 5000000]
+    # Danh sách fallback dùng cho mọi card provider nếu provider chưa khai báo riêng.
+    telcos: ["VIETTEL", "MOBIFONE", "VINAPHONE", "ZING", "GARENA"]
+    providers:
+      card2k:
+        telcos: ["VIETTEL", "MOBIFONE", "VINAPHONE", "ZING", "GARENA"]
+      gachthefast:
+        telcos: ["VIETTEL", "MOBIFONE", "VINAPHONE", "ZING", "GARENA"]
+      thesieure:
+        telcos: ["VIETTEL", "MOBIFONE", "VINAPHONE", "ZING", "GARENA"]
+
+# =============================================================
+# ECONOMY BRIDGE
+# =============================================================
+# Provider economy được chọn tại config.yml > providers.economy.
+#
+# reward-commands:
+# - Chạy bằng console theo đúng thứ tự từ trên xuống.
+# - Có thể thêm bao nhiêu lệnh tùy ý.
+# - Dùng cho bank, thẻ và nạp thủ công khi provider là command.
+# - Là fallback khi Vault/PlayerPoints/FancyEco phát thưởng thất bại.
+#
+# Placeholder: {player}, {points}, {amount}, {net_amount}, {channel}
+# Cú pháp cũ %player%, %points%, %amount%, %net_amount%, %channel% vẫn chạy.
+# Không đặt dấu / ở đầu cũng được; plugin tự xử lý cả hai kiểu.
+#
+# post-commands chạy sau khi phần thưởng chính thành công và có thể tách riêng
+# theo kênh. Phù hợp cho broadcast, crate, rank hoặc lệnh thưởng phụ.
+economy:
+  fallback-to-command: true
+  reward-commands:
+    - "p give {player} {points}"
+    # - "crate key give {player} napthe 1"
+    # - "lp user {player} parent add vip"
+  post-commands:
+    bank: []
+    manual: []
+    card:
+      - "bc &bSotarPayments &8» &f{player} vừa nạp &a{amount} VNĐ &fqua thẻ cào."
+
+# Các key cũ economy.command, reward-command và napthe.rewards.commands vẫn
+# được plugin đọc tự động khi economy.reward-commands chưa được cấu hình.
+conversion-rate: 1

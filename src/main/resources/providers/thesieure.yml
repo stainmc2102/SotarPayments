@@ -1,0 +1,25 @@
+# Thesieure card provider
+thesieure:
+  api:
+    partner_id: ""
+    partner_key: ""
+    domain: "thesieure.com"
+    endpoint: "/chargingws/v2"
+    method: "POST"
+  taxes:
+    enabled: true
+    rates:
+      "10000": 16
+      "20000": 17
+      "30000": 17
+      "50000": 15.5
+      "100000": 15.5
+      "200000": 15
+      "300000": 15
+      "500000": 15
+      "1000000": 15
+  rewards:
+    ratio: 1000
+    commands:
+      - "points give %player% %points%"
+      - "bc &bSotarPayments &8» &f%player% vừa nạp &a%amount% VNĐ &fqua thẻ cào."

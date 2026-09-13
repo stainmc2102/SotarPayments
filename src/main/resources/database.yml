@@ -1,0 +1,33 @@
+# =============================================================
+# SotarPayments - DATABASE
+# Backend: sqlite, mysql, mariadb, postgresql
+# =============================================================
+# Khi đổi backend, hãy DỪNG server, sao lưu dữ liệu và khởi động lại.
+# Plugin không tự xóa hoặc ghi đè database.sqlite cũ.
+
+database:
+  type: "sqlite"
+
+  sqlite:
+    file: "database.sqlite"
+
+  remote:
+    host: "127.0.0.1"
+    # 0 = tự chọn theo backend: 3306 (MySQL/MariaDB), 5432 (PostgreSQL)
+    port: 0
+    database: "sotarpayments"
+    username: "sotarpayments"
+    password: ""
+    use-ssl: false
+    connect-timeout-ms: 5000
+    socket-timeout-ms: 10000
+    allow-public-key-retrieval: false
+
+  pool:
+    maximum-pool-size: 10
+    minimum-idle: 1
+    connection-timeout-ms: 10000
+    validation-timeout-ms: 5000
+    idle-timeout-ms: 600000
+    max-lifetime-ms: 1800000
+    keepalive-time-ms: 30000

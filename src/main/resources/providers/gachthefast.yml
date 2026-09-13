@@ -1,0 +1,9 @@
+# GachTheFast provider
+gachthefast:
+  api:
+    partner_id: ""
+    partner_key: ""
+    wallet_id: ""
+    domain: "gachthefast.com"
+    endpoint: "/chargingws/v2"
+    method: "GET"

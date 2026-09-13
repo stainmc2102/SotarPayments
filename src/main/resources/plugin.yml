@@ -1,0 +1,61 @@
+name: SotarPayments
+version: 1.4.3
+main: vn.sotarpayments.SotarPayments
+api-version: 1.21
+folia-supported: true
+author: Stain | SotarStudio
+website: "https://discord.gg/jD5naBEGMA"
+softdepend: [PlaceholderAPI, Vault, PlayerPoints, FancyEco, FancyEconomy, FancyEconomyCore]
+
+commands:
+  bank:
+    description: "Nạp tiền qua ngân hàng."
+    usage: /bank [số tiền|gui|cancel]
+    aliases: [napbank, banking]
+    permission: sotarpayments.default
+  napthe:
+    description: "Nạp thẻ cào qua provider đã cấu hình."
+    usage: /napthe [gui|loaithe menhgia [seri] [mathe]]
+    aliases: [napcard, card, thecao]
+    permission: sotarpayments.default
+  confirmcard:
+    description: "Xác nhận giao dịch nạp thẻ cào"
+    permission: sotarpayments.default
+  cancelcard:
+    description: "Hủy giao dịch nạp thẻ cào"
+    permission: sotarpayments.default
+  topnap:
+    description: "Xem bảng xếp hạng nạp."
+    usage: /topnap [all|week|month] [trang]
+    permission: sotarpayments.default
+  lichsunap:
+    description: "Xem lịch sử nạp cá nhân."
+    usage: /lichsunap
+    permission: sotarpayments.default
+  mocnap:
+    description: "Xem quà mốc nạp cá nhân và toàn server."
+    usage: /mocnap <canhan|server|bossbar>
+    permission: sotarpayments.default
+  sotarpayments:
+    description: "Lệnh thông tin của SotarPayments."
+    usage: /sotarpayments
+    aliases: [kp, sotar]
+    permission: sotarpayments.default
+  sotar-admin:
+    description: "Lệnh quản trị của SotarPayments."
+    usage: /sotar-admin
+    aliases: [kp-admin]
+    permission: sotarpayments.admin
+  taokenhbanhang:
+    description: "Gửi embed cửa hàng Discord Auto Buy."
+    usage: /taokenhbanhang [publish|reload|status]
+    aliases: [storepost, kpstore]
+    permission: sotarpayments.admin
+
+permissions:
+  sotarpayments.default:
+    description: "Quyền mặc định cho Member"
+    default: true
+  sotarpayments.admin:
+    description: "Quyền quản trị viên"
+    default: op

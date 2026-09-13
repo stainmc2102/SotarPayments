@@ -1,0 +1,10 @@
+# SePay provider
+sepay:
+  api-token: ""
+  # Mã ngân hàng dùng cho VietQR, ví dụ: MBBank, MB,.. Xem danh sách mã ngân hàng tại https://anotepad.com/notes/a84xemr7
+  bank-code: ""
+  bank-name: ""
+  account-number: ""
+  account-name: ""
+  payment-format: "{playername} TENCUM {ordercode}"
+  transaction-lookup-limit: 20
