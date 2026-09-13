@@ -114,4 +114,6 @@ Khi sửa cấu hình hoặc thêm provider, hãy cập nhật cả tài liệu 
 
 ## 📄 Bản quyền
 
-© SotarStudio — Stain. Xem điều khoản sử dụng tại nơi phân phối plugin (SpigotMC/BuiltByBit) hoặc liên hệ tác giả qua Discord `stainmc2102`.
+© SotarStudio — Stain. Thoải mái sử dụng, fork và chỉnh sửa theo ý muốn! Nếu cần hỗ trợ hoặc hợp tác, liên hệ Discord: `stainmc2102`.
+
+📌 Credits: Forked from https://github.com/dduong19208/KoraPayments
